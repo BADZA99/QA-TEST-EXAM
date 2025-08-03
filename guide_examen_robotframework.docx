@@ -1,0 +1,168 @@
+# Guide pour le projet ISI GL 2025 - RobotFramework
+
+## Introduction
+Ce guide vous accompagne étape par étape pour réaliser le projet de QA Test basé sur RobotFramework. Le projet est divisé en plusieurs laboratoires (Lab 1 à Lab 4), chacun ayant des objectifs spécifiques. Voici les étapes détaillées pour chaque laboratoire.
+
+---
+
+## Lab 1 : Tests sur une base de données MongoDB
+
+### Objectif
+Automatiser les tests CRUD (Create, Read, Update, Delete) sur une base MongoDB hébergée sur MongoDB Atlas, en utilisant le schéma fourni dans `fakeStoreDB`.
+
+### Étapes
+1. **Rédiger un cahier de tests**
+   - Inclure un scénario passant et deux scénarios non passants pour chaque opération CRUD.
+   - Exemple :
+     - **Create** :
+       - Scénario passant : Ajouter un produit valide.
+       - Scénario non passant : Ajouter un produit sans titre.
+       - Scénario non passant : Ajouter un produit avec un prix négatif.
+
+2. **Automatiser les tests avec RobotFramework**
+   - Installer la bibliothèque `DatabaseLibrary` pour interagir avec MongoDB.
+   - Exemple de script pour une opération Create :
+     ```robotframework
+     *** Settings ***
+     Library    DatabaseLibrary
+
+     *** Variables ***
+     ${MONGO_URI}    mongodb+srv://<username>:<password>@cluster.mongodb.net/test
+
+     *** Test Cases ***
+     Create Product
+         Connect To Database    pymongo    ${MONGO_URI}
+         Insert Document    products    {"title": "Test Product", "price": 100}
+         Disconnect From Database
+     ```
+
+3. **Tester les scripts**
+   - Exécuter les scripts et valider les résultats.
+
+---
+
+## Lab 2 : Tests fonctionnels UI – Customer Service
+
+### Objectif
+Automatiser les cas de test fonctionnels pour l’application CRM disponible à l’URL : `https://automationplayground.com/crm/index.html`.
+
+### Étapes
+1. **Analyser le document “Customer Service Test Cases”**
+   - Identifier les cas de test à automatiser (exemple : connexion, ajout de client, etc.).
+
+2. **Créer les scripts d’automatisation**
+   - Utiliser `SeleniumLibrary` pour interagir avec l’interface utilisateur.
+   - Exemple de script pour le test “Login should succeed with valid credentials” :
+     ```robotframework
+     *** Settings ***
+     Library    SeleniumLibrary
+
+     *** Variables ***
+     ${URL}    https://automationplayground.com/crm/index.html
+     ${USERNAME}    admin
+     ${PASSWORD}    password
+
+     *** Test Cases ***
+     Login With Valid Credentials
+         Open Browser    ${URL}    chrome
+         Input Text    id=username    ${USERNAME}
+         Input Text    id=password    ${PASSWORD}
+         Click Button    id=login
+         Page Should Contain    Dashboard
+         Close Browser
+     ```
+
+3. **Exécuter les scripts**
+   - Lancer les tests et vérifier les résultats.
+
+---
+
+## Lab 3 : Tests d’APIs REST – Intégration avec eBay
+
+### Objectif
+Tester l’intégration avec l’API Fulfillment d’eBay pour les opérations suivantes :
+- `createShippingFulfillment`
+- `getShippingFulfillment`
+- `getShippingFulfillments`
+
+### Étapes
+1. **Créer un scénario passant et un scénario non passant**
+   - Exemple :
+     - Scénario passant : Créer un fulfillment avec des données valides.
+     - Scénario non passant : Créer un fulfillment avec un ID de commande invalide.
+
+2. **Automatiser les tests avec RobotFramework**
+   - Installer `RequestsLibrary` pour interagir avec l’API.
+   - Exemple de script pour `createShippingFulfillment` :
+     ```robotframework
+     *** Settings ***
+     Library    RequestsLibrary
+
+     *** Variables ***
+     ${BASE_URL}    https://api.ebay.com/sell/fulfillment/v1
+     ${TOKEN}    Bearer <your_access_token>
+
+     *** Test Cases ***
+     Create Shipping Fulfillment
+         Create Session    ebay    ${BASE_URL}    headers={"Authorization": "${TOKEN}"}
+         ${body}=    Create Dictionary    orderId=12345    lineItems=[{"lineItemId": "67890", "quantity": 1}]
+         ${response}=    POST    ebay    /shipping_fulfillment    json=${body}
+         Should Be Equal As Integers    ${response.status_code}    201
+     ```
+
+3. **Tester les scripts**
+   - Exécuter les scripts et valider les réponses de l’API.
+
+---
+
+## Lab 4 : Tests mobiles – APK Looma
+
+### Objectif
+Automatiser les tests sur l’application mobile `looma.apk`.
+
+### Étapes
+1. **Configurer Appium**
+   - Installer Appium Server et Appium Inspector.
+   - Configurer les Desired Capabilities pour l’application Looma.
+
+2. **Créer les scripts d’automatisation**
+   - Utiliser `AppiumLibrary` pour interagir avec l’application mobile.
+   - Exemple de script pour l’authentification :
+     ```robotframework
+     *** Settings ***
+     Library    AppiumLibrary
+
+     *** Variables ***
+     ${PLATFORM_NAME}    Android
+     ${DEVICE_NAME}    Pixel_3
+     ${APP}    path/to/looma.apk
+
+     *** Test Cases ***
+     Login To Looma
+         Open Application    platformName=${PLATFORM_NAME}    deviceName=${DEVICE_NAME}    app=${APP}
+         Input Text    id=username    testuser
+         Input Text    id=password    testpass
+         Click Element    id=login
+         Page Should Contain    Welcome
+         Close Application
+     ```
+
+3. **Exécuter les scripts**
+   - Lancer les tests sur un émulateur ou un appareil réel.
+
+---
+
+## Livrables attendus
+1. Un document PowerPoint de restitution des travaux, incluant les noms des binômes.
+2. Un dépôt GitHub structuré avec les répertoires `lab1`, `lab2`, `lab3`, `lab4`.
+3. Respect des bonnes pratiques de structuration de projet.
+4. Une démo préparée pour le jour de restitution.
+
+---
+
+## Astuce bonus
+- Évitez d’utiliser des XPath pour identifier les éléments dans les tests mobiles afin de gagner une prime d’innovation (+2 points).
+
+---
+
+Bonne chance pour votre projet !

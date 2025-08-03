@@ -1,0 +1,134 @@
+		Manual Test Scenarios			
+				LIBRARY	KEYWORD(S)
+Id:	1001	Home page should load			
+Feature:	Home	PRE-CONDITIONS			Set Selenium Speed | Set Selenium Timeout
+Type:	Smoke	Action	Expected Result		
+		1. Open web browser	Browser opens successfully	SeleniumLibrary	Open Browser | Create Web Driver --> Maximize Browser Window | Set Window Size
+		2. Navigate to home page address	Home page loads	SeleniumLibrary	Open Browser | Go To
+		STEPS			
+		Action	Expected Result		
+		1. User examines home page contents	Elements should exist per requirements	SeleniumLibrary	Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		POST-CONDITIONS			
+		Action	Expected Result		
+		1. Close web browser	Browser is closed	SeleniumLibrary	Close Browser | Close All Browsers
+
+
+Id:	1002	Login should succeed with valid credentials			
+Feature:	Login	PRE-CONDITIONS			
+Type:	Smoke	Action	Expected Result		
+		1. Open web browser	Browser opens successfully	SeleniumLibrary	Open Browser | Create Web Driver | Maximize Browser Window | Set Window Size
+		2. Navigate to home page address	Home page loads	SeleniumLibrary	Open Browser | Go To
+		STEPS			
+		Action	Expected Result		
+		"1. Click ""Login"" link"	Login page loads	SeleniumLibrary	Click Link | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		2. Type valid login credentials		SeleniumLibrary	Input Text
+		"3. Click ""Submit"" button"	Contacts page loads	SeleniumLibrary	Click Button | Click Element --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		POST-CONDITIONS			
+		Action	Expected Result		
+		1. Close web browser	Browser is closed	SeleniumLibrary	Close Browser | Close All Browsers
+
+
+Id:	1003	Login should fail with missing credentials			
+Feature:	Login	PRE-CONDITIONS			
+Type:	Functional	Action	Expected Result		
+		1. Open web browser	Browser opens successfully	SeleniumLibrary	Open Browser | Create Web Driver | Maximize Browser Window | Set Window Size
+		2. Navigate to home page address	Home page loads	SeleniumLibrary	Open Browser | Go To
+		STEPS			
+		Action	Expected Result		
+		"1. Click ""Login"" link"	Login page loads	SeleniumLibrary	Click Link | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		2. Leave login credentials empty		Built In	Log that we are skipping credentials?
+		"3. Click ""Submit"" button"	User remains on login page and is not logged in	SeleniumLibrary	Click Button | Click Element
+		POST-CONDITIONS			
+		Action	Expected Result		
+		1. Close web browser	Browser is closed	SeleniumLibrary	Close Browser | Close All Browsers
+
+
+Id:	1003	"""Remember me"" checkbox should persist email address"			
+Feature:	Login	PRE-CONDITIONS			
+Type:	Functional	Action	Expected Result		
+		1. Open web browser	Browser opens successfully	SeleniumLibrary	Open Browser | Create Web Driver | Maximize Browser Window | Set Window Size
+		2. Navigate to home page address	Home page loads	SeleniumLibrary	Open Browser | Go To
+		STEPS			
+		Action	Expected Result		
+		"1. Click ""Login"" link"	Login page loads	SeleniumLibrary	Click Link | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		2. Type valid login credentials		SeleniumLibrary	Input Text
+		"3. Click ""Remember me"" checkbox"		SeleniumLibrary	Select Checkbox |Click Element
+		"4. Click ""Submit"" button"	Contacts page loads	SeleniumLibrary	Click Button | Click Element
+		"5. Click ""Logout"" link"	Logged out page loads	SeleniumLibrary	Click Link | Click Element
+		"6. Click ""Login"" link"	Login page loads with email pre-populated	SeleniumLibrary	Click Link | Click Element --> Textfield Value Should Be
+		POST-CONDITIONS			
+		Action	Expected Result		
+		1. Close web browser	Browser is closed	SeleniumLibrary	Close Browser | Close All Browsers
+
+
+Id:	1004	Should be able to log out			
+Feature:	Login	PRE-CONDITIONS			
+Type:	Functional	Action	Expected Result		
+		1. Open web browser	Browser opens successfully	SeleniumLibrary	Open Browser | Create Web Driver | Maximize Browser Window | Set Window Size
+		2. Navigate to home page address	Home page loads	SeleniumLibrary	Open Browser | Go To
+		STEPS			
+		Action	Expected Result		
+		"1. Click ""Login"" link"	Login page loads	SeleniumLibrary	Click Link | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		2. Type valid login credentials		SeleniumLibrary	Input Text
+		"3. Click ""Submit"" button"	Contacts page loads	SeleniumLibrary	Click Button | Click Element
+		"4. Click ""Logout"" link"	Logged out page loads	SeleniumLibrary	Open Browser | Go To
+		POST-CONDITIONS			
+		Action	Expected Result		
+		1. Close web browser	Browser is closed	SeleniumLibrary	Close Browser | Close All Browsers
+
+
+Id:	1005	Customers page should display multiple customers			
+Feature:	Contacts	PRE-CONDITIONS			
+Type:	Smoke	Action	Expected Result		
+		1. Open web browser	Browser opens successfully	SeleniumLibrary	Open Browser | Create Web Driver | Maximize Browser Window | Set Window Size
+		2. Navigate to home page address	Home page loads	SeleniumLibrary	Open Browser | Go To
+		STEPS			
+		Action	Expected Result		
+		"1. Click ""Login"" link"	Login page loads	SeleniumLibrary	Click Link | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		2. Type valid login credentials		SeleniumLibrary	Input Text
+		"3. Click ""Submit"" button"	Contacts page loads	SeleniumLibrary	Click Button | Click Element
+		4. Examine customers grid for multiple records	Customers grid should have more than 1 row	SeleniumLibrary	Challenge: How will we test this?
+		POST-CONDITIONS			
+		Action	Expected Result		
+		1. Close web browser	Browser is closed	SeleniumLibrary	Close Browser | Close All Browsers
+
+
+Id:	1006	Should be able to add new customer			
+Feature:	Contacts	PRE-CONDITIONS			
+Type:	Smoke	Action	Expected Result		
+		1. Open web browser	Browser opens successfully	SeleniumLibrary	Open Browser | Create Web Driver | Maximize Browser Window | Set Window Size
+		2. Navigate to home page address	Home page loads	SeleniumLibrary	Open Browser | Go To  --> Wait Until Page Contains | Location Should Be | Location Should Contain
+		"3. Click ""Login"" link"	Login page loads	SeleniumLibrary	Click Link | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		4. Type valid login credentials		SeleniumLibrary	Input Text
+		"5. Click ""Submit"" button"	"""Customers"" page loads"	SeleniumLibrary	Click Button | Click Element
+		STEPS			
+		Action	Expected Result		
+		"1. Click ""New Customer"" button"	"""Add customer"" page loads"	SeleniumLibrary	Click Button | Click Element
+		2. Type customer email		SeleniumLibrary	Input Text
+		3. Type customer first name		SeleniumLibrary	Input Text
+		4. Type customer last name		SeleniumLibrary	Input Text
+		5. Type customer city		SeleniumLibrary	Input Text
+		6. Select customer state		SeleniumLibrary	Select from List by Index | Select from List by Value
+		7. Select gender		SeleniumLibrary	Select Radio Button
+		8. Optionally check promotion checkbox		SeleniumLibrary	Select Checkbox
+		"9. Click ""Submit"" button"	Customer success page loads	SeleniumLibrary	Click Button | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		POST-CONDITIONS			
+		Action	Expected Result		
+		1. Close web browser	Browser is closed	SeleniumLibrary	Close Browser | Close All Browsers
+
+
+Id:	1007	Should be able to cancel adding new customer			
+Feature:	Contacts	PRE-CONDITIONS			
+Type:	Functional	Action	Expected Result		
+		1. Open web browser	Browser opens successfully	SeleniumLibrary	Open Browser | Create Web Driver | Maximize Browser Window | Set Window Size
+		2. Navigate to home page address	Home page loads	SeleniumLibrary	Open Browser | Go To
+		STEPS			
+		Action	Expected Result		
+		"1. Click ""Login"" link"	Login page loads	SeleniumLibrary	Click Link | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		2. Type valid login credentials		SeleniumLibrary	Input Text
+		"3. Click ""Submit"" button"	"""Customers"" page loads"	SeleniumLibrary	Click Button | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		"4. Click ""New Customer"" button"	"""Add customer"" page loads"	SeleniumLibrary	Click Button | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		"5. Click ""Cancel"" button"	"""Customers"" page loads"	SeleniumLibrary	Click Button | Click Element  --> Wait Until Page Contains | Page Should Contain | Element Text Should Be
+		POST-CONDITIONS			
+		Action	Expected Result		
+		1. Close web browser	Browser is closed	SeleniumLibrary	Close Browser | Close All Browsers

@@ -1,0 +1,1366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.10.7 on win32)" generated="2025-08-02T03:27:21.565564" rpa="false" schemaversion="5">
+<suite id="s1" name="Mongodb Crud Tests" source="C:\Users\LENOVO\Desktop\M1 GL\QA TEST\examen\lab1\testcases\mongodb_crud_tests.robot">
+<test id="s1-t1" name="Create Product - Success" line="12">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:21.769223" elapsed="5.348850"/>
+</kw>
+<kw name="Insert Product" owner="mongodb_library">
+<msg time="2025-08-02T03:27:27.196090" level="INFO">${id} = 688d859fd58398349bfe424b</msg>
+<var>${id}</var>
+<arg>${VALID_PRODUCT}</arg>
+<doc>Insert a product into MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:27:27.118073" elapsed="0.078017"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2025-08-02T03:27:27.196090" level="INFO">Length is 24.</msg>
+<arg>${id}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2025-08-02T03:27:27.196090" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:27.196090" elapsed="0.079761"/>
+</kw>
+<doc>Test de création d'un produit valide</doc>
+<status status="PASS" start="2025-08-02T03:27:21.769223" elapsed="5.506628"/>
+</test>
+<test id="s1-t2" name="Create Product - Missing Required Field" line="17">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:27.275851" elapsed="4.835536"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Insert Product" owner="mongodb_library">
+<msg time="2025-08-02T03:27:32.111387" level="FAIL">Missing required field(s): title, description</msg>
+<arg>${INVALID_PRODUCT}</arg>
+<doc>Insert a product into MongoDB</doc>
+<status status="FAIL" start="2025-08-02T03:27:32.111387" elapsed="0.000000">Missing required field(s): title, description</status>
+</kw>
+<arg>*Missing required field*</arg>
+<arg>Insert Product</arg>
+<arg>${INVALID_PRODUCT}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:27:32.111387" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:32.111387" elapsed="0.062497"/>
+</kw>
+<doc>Test de création avec champ requis manquant</doc>
+<status status="PASS" start="2025-08-02T03:27:27.275851" elapsed="4.898033"/>
+</test>
+<test id="s1-t3" name="Create Product - Invalid Price" line="21">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:32.173884" elapsed="4.757911"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Insert Product" owner="mongodb_library">
+<msg time="2025-08-02T03:27:36.931795" level="FAIL">Price must be a number</msg>
+<arg>${BAD_TYPE_PRODUCT}</arg>
+<doc>Insert a product into MongoDB</doc>
+<status status="FAIL" start="2025-08-02T03:27:36.931795" elapsed="0.000000">Price must be a number</status>
+</kw>
+<arg>*Price must be a number*</arg>
+<arg>Insert Product</arg>
+<arg>${BAD_TYPE_PRODUCT}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:27:36.931795" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:36.931795" elapsed="0.125010"/>
+</kw>
+<doc>Test de création avec prix invalide</doc>
+<status status="PASS" start="2025-08-02T03:27:32.173884" elapsed="4.882921"/>
+</test>
+<test id="s1-t4" name="Read Product - Success" line="25">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:37.056805" elapsed="4.776672"/>
+</kw>
+<kw name="Insert Product" owner="mongodb_library">
+<msg time="2025-08-02T03:27:41.912197" level="INFO">${id} = 688d85add58398349bfe424f</msg>
+<var>${id}</var>
+<arg>${VALID_PRODUCT}</arg>
+<doc>Insert a product into MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:27:41.833477" elapsed="0.078720"/>
+</kw>
+<kw name="Get Product By ID" owner="mongodb_library">
+<msg time="2025-08-02T03:27:41.974830" level="INFO">${product} = {'_id': '688d85add58398349bfe424f', 'title': 'Samsung S24', 'price': 899.99, 'description': 'Latest smartphone', 'category': 'phones', 'image': 'http://example.com/s24.jpg'}</msg>
+<var>${product}</var>
+<arg>${id}</arg>
+<doc>Get a product by ID from MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:27:41.912197" elapsed="0.062633"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${product}[title]</arg>
+<arg>Samsung S24</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-08-02T03:27:41.974830" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:41.974830" elapsed="0.062334"/>
+</kw>
+<doc>Test de lecture d'un produit existant</doc>
+<status status="PASS" start="2025-08-02T03:27:37.056805" elapsed="4.980359"/>
+</test>
+<test id="s1-t5" name="Read Product - Non-Existent ID" line="31">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:42.052792" elapsed="4.761549"/>
+</kw>
+<kw name="Get Product By ID" owner="mongodb_library">
+<msg time="2025-08-02T03:27:46.814341" level="INFO">${product} = None</msg>
+<var>${product}</var>
+<arg>nonexistent</arg>
+<doc>Get a product by ID from MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:27:46.814341" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${product}</arg>
+<arg>${None}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-08-02T03:27:46.814341" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:46.814341" elapsed="0.063707"/>
+</kw>
+<doc>Test de lecture d'un ID inexistant</doc>
+<status status="PASS" start="2025-08-02T03:27:42.037164" elapsed="4.840884"/>
+</test>
+<test id="s1-t6" name="Read Product - Invalid ID Format" line="36">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:46.893674" elapsed="4.805902"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Get Product By ID" owner="mongodb_library">
+<arg>invalid-id</arg>
+<doc>Get a product by ID from MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:27:51.699576" elapsed="0.000000"/>
+</kw>
+<msg time="2025-08-02T03:27:51.699576" level="FAIL">Expected error '*Invalid ObjectId format*' did not occur.</msg>
+<arg>*Invalid ObjectId format*</arg>
+<arg>Get Product By ID</arg>
+<arg>invalid-id</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="FAIL" start="2025-08-02T03:27:51.699576" elapsed="0.000000">Expected error '*Invalid ObjectId format*' did not occur.</status>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:51.699576" elapsed="0.062501"/>
+</kw>
+<doc>Test de lecture avec un format d'ID invalide</doc>
+<status status="FAIL" start="2025-08-02T03:27:46.878048" elapsed="4.884029">Expected error '*Invalid ObjectId format*' did not occur.</status>
+</test>
+<test id="s1-t7" name="Update Product - Success" line="40">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:51.777701" elapsed="4.764276"/>
+</kw>
+<kw name="Insert Product" owner="mongodb_library">
+<msg time="2025-08-02T03:27:56.621038" level="INFO">${id} = 688d85bcd58398349bfe4253</msg>
+<var>${id}</var>
+<arg>${VALID_PRODUCT}</arg>
+<doc>Insert a product into MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:27:56.541977" elapsed="0.079061"/>
+</kw>
+<kw name="Update Product" owner="mongodb_library">
+<msg time="2025-08-02T03:27:56.683986" level="INFO">${count} = 1</msg>
+<var>${count}</var>
+<arg>${id}</arg>
+<arg>{"price": 999}</arg>
+<doc>Update a product in MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:27:56.621038" elapsed="0.062948"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${1}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-08-02T03:27:56.683986" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:56.683986" elapsed="0.062498"/>
+</kw>
+<doc>Test de mise à jour d'un produit</doc>
+<status status="PASS" start="2025-08-02T03:27:51.762077" elapsed="4.984407"/>
+</test>
+<test id="s1-t8" name="Update Product - Non-Existent ID" line="46">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:27:56.762114" elapsed="4.734437"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Update Product" owner="mongodb_library">
+<msg time="2025-08-02T03:28:01.512170" level="FAIL">Invalid ObjectId format: nonexistent</msg>
+<arg>nonexistent</arg>
+<arg>{"price": 999}</arg>
+<doc>Update a product in MongoDB</doc>
+<status status="FAIL" start="2025-08-02T03:28:01.512170" elapsed="0.000000">Invalid ObjectId format: nonexistent</status>
+</kw>
+<arg>*Invalid ObjectId format*</arg>
+<arg>Update Product</arg>
+<arg>nonexistent</arg>
+<arg>{"price": 999}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:28:01.512170" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:01.512170" elapsed="0.078123"/>
+</kw>
+<doc>Test de mise à jour avec un ID inexistant</doc>
+<status status="PASS" start="2025-08-02T03:27:56.762114" elapsed="4.828179"/>
+</test>
+<test id="s1-t9" name="Update Product - Invalid Data" line="50">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:01.590293" elapsed="4.832439"/>
+</kw>
+<kw name="Insert Product" owner="mongodb_library">
+<msg time="2025-08-02T03:28:06.500920" level="INFO">${id} = 688d85c6d58398349bfe4256</msg>
+<var>${id}</var>
+<arg>${VALID_PRODUCT}</arg>
+<doc>Insert a product into MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:28:06.422732" elapsed="0.078188"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Update Product" owner="mongodb_library">
+<msg time="2025-08-02T03:28:06.500920" level="FAIL">Price must be a number</msg>
+<arg>${id}</arg>
+<arg>{"price": "invalid"}</arg>
+<doc>Update a product in MongoDB</doc>
+<status status="FAIL" start="2025-08-02T03:28:06.500920" elapsed="0.000000">Price must be a number</status>
+</kw>
+<arg>*Price must be a number*</arg>
+<arg>Update Product</arg>
+<arg>${id}</arg>
+<arg>{"price": "invalid"}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:28:06.500920" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:06.500920" elapsed="0.069653"/>
+</kw>
+<doc>Test de mise à jour avec données invalides</doc>
+<status status="PASS" start="2025-08-02T03:28:01.590293" elapsed="4.980280"/>
+</test>
+<test id="s1-t10" name="Delete Product - Success" line="55">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:06.570573" elapsed="4.791739"/>
+</kw>
+<kw name="Insert Product" owner="mongodb_library">
+<msg time="2025-08-02T03:28:11.440459" level="INFO">${id} = 688d85cbd58398349bfe4258</msg>
+<var>${id}</var>
+<arg>${VALID_PRODUCT}</arg>
+<doc>Insert a product into MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:28:11.362312" elapsed="0.078147"/>
+</kw>
+<kw name="Delete Product" owner="mongodb_library">
+<msg time="2025-08-02T03:28:11.503158" level="INFO">${count} = 1</msg>
+<var>${count}</var>
+<arg>${id}</arg>
+<doc>Delete a product from MongoDB</doc>
+<status status="PASS" start="2025-08-02T03:28:11.440459" elapsed="0.062699"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${1}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-08-02T03:28:11.503158" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:11.503158" elapsed="0.078275"/>
+</kw>
+<doc>Test de suppression d'un produit</doc>
+<status status="PASS" start="2025-08-02T03:28:06.570573" elapsed="5.010860"/>
+</test>
+<test id="s1-t11" name="Delete Product - Non-Existent ID" line="61">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:11.581433" elapsed="4.751636"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Delete Product" owner="mongodb_library">
+<msg time="2025-08-02T03:28:16.333069" level="FAIL">Invalid ObjectId format: nonexistent</msg>
+<arg>nonexistent</arg>
+<doc>Delete a product from MongoDB</doc>
+<status status="FAIL" start="2025-08-02T03:28:16.333069" elapsed="0.000000">Invalid ObjectId format: nonexistent</status>
+</kw>
+<arg>*Invalid ObjectId format*</arg>
+<arg>Delete Product</arg>
+<arg>nonexistent</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:28:16.333069" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:16.333069" elapsed="0.062978"/>
+</kw>
+<doc>Test de suppression avec un ID inexistant</doc>
+<status status="PASS" start="2025-08-02T03:28:11.581433" elapsed="4.814614"/>
+</test>
+<test id="s1-t12" name="Delete Product - Invalid ID Format" line="65">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:16.411675" elapsed="4.758608"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Delete Product" owner="mongodb_library">
+<msg time="2025-08-02T03:28:21.170283" level="FAIL">Invalid ObjectId format: invalid-id</msg>
+<arg>invalid-id</arg>
+<doc>Delete a product from MongoDB</doc>
+<status status="FAIL" start="2025-08-02T03:28:21.170283" elapsed="0.000000">Invalid ObjectId format: invalid-id</status>
+</kw>
+<arg>*Invalid ObjectId format*</arg>
+<arg>Delete Product</arg>
+<arg>invalid-id</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:28:21.170283" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:21.170283" elapsed="0.062502"/>
+</kw>
+<doc>Test de suppression avec un format d'ID invalide</doc>
+<status status="PASS" start="2025-08-02T03:28:16.396047" elapsed="4.836738"/>
+</test>
+<test id="s1-t13" name="Create Valid User" line="70">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:21.232785" elapsed="4.790528"/>
+</kw>
+<kw name="Insert User" owner="mongodb_library">
+<msg time="2025-08-02T03:28:26.101440" level="INFO">${id} = 688d85dad58398349bfe425c</msg>
+<var>${id}</var>
+<arg>${VALID_USER}</arg>
+<status status="PASS" start="2025-08-02T03:28:26.023313" elapsed="0.078127"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2025-08-02T03:28:26.101440" level="INFO">Length is 24.</msg>
+<arg>${id}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2025-08-02T03:28:26.101440" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:26.101440" elapsed="0.062493"/>
+</kw>
+<doc>Test de création d'un utilisateur valide</doc>
+<status status="PASS" start="2025-08-02T03:28:21.232785" elapsed="4.931148"/>
+</test>
+<test id="s1-t14" name="Create User Missing Field" line="75">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:26.179402" elapsed="5.017112"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Insert User" owner="mongodb_library">
+<msg time="2025-08-02T03:28:31.196514" level="FAIL">Missing required field(s): email</msg>
+<arg>${INVALID_USER}</arg>
+<status status="FAIL" start="2025-08-02T03:28:31.196514" elapsed="0.000000">Missing required field(s): email</status>
+</kw>
+<arg>*Missing required field*</arg>
+<arg>Insert User</arg>
+<arg>${INVALID_USER}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:28:31.196514" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:31.196514" elapsed="0.078003"/>
+</kw>
+<doc>Test de création avec email manquant</doc>
+<status status="PASS" start="2025-08-02T03:28:26.179402" elapsed="5.095115"/>
+</test>
+<test id="s1-t15" name="Create User With Invalid Type" line="79">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:31.274517" elapsed="4.756157"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Insert User" owner="mongodb_library">
+<msg time="2025-08-02T03:28:36.030674" level="FAIL">Invalid email format</msg>
+<arg>${BAD_TYPE_USER}</arg>
+<status status="FAIL" start="2025-08-02T03:28:36.030674" elapsed="0.000000">Invalid email format</status>
+</kw>
+<arg>*Invalid email format*</arg>
+<arg>Insert User</arg>
+<arg>${BAD_TYPE_USER}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:28:36.030674" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:36.030674" elapsed="0.060988"/>
+</kw>
+<doc>Test de création avec email invalide</doc>
+<status status="PASS" start="2025-08-02T03:28:31.274517" elapsed="4.817145"/>
+</test>
+<test id="s1-t16" name="Read Valid User" line="83">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:36.107306" elapsed="4.769240"/>
+</kw>
+<kw name="Insert User" owner="mongodb_library">
+<msg time="2025-08-02T03:28:40.939081" level="INFO">${id} = 688d85e8d58398349bfe4260</msg>
+<var>${id}</var>
+<arg>${VALID_USER}</arg>
+<status status="PASS" start="2025-08-02T03:28:40.876546" elapsed="0.062535"/>
+</kw>
+<kw name="Get User By ID" owner="mongodb_library">
+<msg time="2025-08-02T03:28:41.017206" level="INFO">${user} = {'_id': '688d85e8d58398349bfe4260', 'email': 'test@example.com', 'username': 'testuser', 'password': 'password123'}</msg>
+<var>${user}</var>
+<arg>${id}</arg>
+<status status="PASS" start="2025-08-02T03:28:40.954708" elapsed="0.062498"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${user}[email]</arg>
+<arg>test@example.com</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-08-02T03:28:41.017206" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:41.017206" elapsed="0.063514"/>
+</kw>
+<doc>Test de lecture d'un utilisateur</doc>
+<status status="PASS" start="2025-08-02T03:28:36.091662" elapsed="4.989058"/>
+</test>
+<test id="s1-t17" name="Read User Non-Existent ID" line="89">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:41.080720" elapsed="4.787123"/>
+</kw>
+<kw name="Get User By ID" owner="mongodb_library">
+<msg time="2025-08-02T03:28:45.867843" level="INFO">${user} = None</msg>
+<var>${user}</var>
+<arg>nonexistent</arg>
+<status status="PASS" start="2025-08-02T03:28:45.867843" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${user}</arg>
+<arg>${None}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-08-02T03:28:45.867843" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:45.867843" elapsed="0.064532"/>
+</kw>
+<doc>Test de lecture d'un ID inexistant</doc>
+<status status="PASS" start="2025-08-02T03:28:41.080720" elapsed="4.851655"/>
+</test>
+<test id="s1-t18" name="Read User Invalid ID Format" line="94">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:45.932375" elapsed="4.798582"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Get User By ID" owner="mongodb_library">
+<arg>invalid-id</arg>
+<status status="PASS" start="2025-08-02T03:28:50.730957" elapsed="0.000000"/>
+</kw>
+<msg time="2025-08-02T03:28:50.730957" level="FAIL">Expected error '*Invalid ObjectId format*' did not occur.</msg>
+<arg>*Invalid ObjectId format*</arg>
+<arg>Get User By ID</arg>
+<arg>invalid-id</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="FAIL" start="2025-08-02T03:28:50.730957" elapsed="0.000000">Expected error '*Invalid ObjectId format*' did not occur.</status>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:50.730957" elapsed="0.063435"/>
+</kw>
+<doc>Test de lecture avec un format d'ID invalide</doc>
+<status status="FAIL" start="2025-08-02T03:28:45.932375" elapsed="4.862017">Expected error '*Invalid ObjectId format*' did not occur.</status>
+</test>
+<test id="s1-t19" name="Update Valid User" line="98">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:50.794392" elapsed="4.768595"/>
+</kw>
+<kw name="Insert User" owner="mongodb_library">
+<msg time="2025-08-02T03:28:55.629075" level="INFO">${id} = 688d85f7d58398349bfe4264</msg>
+<var>${id}</var>
+<arg>${VALID_USER}</arg>
+<status status="PASS" start="2025-08-02T03:28:55.562987" elapsed="0.066088"/>
+</kw>
+<kw name="Update User" owner="mongodb_library">
+<msg time="2025-08-02T03:28:55.707612" level="INFO">${count} = 1</msg>
+<var>${count}</var>
+<arg>${id}</arg>
+<arg>{"username": "newuser"}</arg>
+<status status="PASS" start="2025-08-02T03:28:55.629075" elapsed="0.078537"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${1}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-08-02T03:28:55.707612" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:55.707612" elapsed="0.062498"/>
+</kw>
+<doc>Test de mise à jour d'un utilisateur</doc>
+<status status="PASS" start="2025-08-02T03:28:50.794392" elapsed="4.975718"/>
+</test>
+<test id="s1-t20" name="Update User Non-Existent ID" line="104">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:28:55.770110" elapsed="4.783038"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Update User" owner="mongodb_library">
+<msg time="2025-08-02T03:29:00.553148" level="FAIL">Invalid ObjectId format: nonexistent</msg>
+<arg>nonexistent</arg>
+<arg>{"username": "newuser"}</arg>
+<status status="FAIL" start="2025-08-02T03:29:00.553148" elapsed="0.000000">Invalid ObjectId format: nonexistent</status>
+</kw>
+<arg>*Invalid ObjectId format*</arg>
+<arg>Update User</arg>
+<arg>nonexistent</arg>
+<arg>{"username": "newuser"}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:29:00.553148" elapsed="0.015562"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:00.568710" elapsed="0.078129"/>
+</kw>
+<doc>Test de mise à jour avec un ID inexistant</doc>
+<status status="PASS" start="2025-08-02T03:28:55.770110" elapsed="4.876729"/>
+</test>
+<test id="s1-t21" name="Update User Invalid Data" line="108">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:00.646839" elapsed="4.741611"/>
+</kw>
+<kw name="Insert User" owner="mongodb_library">
+<msg time="2025-08-02T03:29:05.466590" level="INFO">${id} = 688d8601d58398349bfe4267</msg>
+<var>${id}</var>
+<arg>${VALID_USER}</arg>
+<status status="PASS" start="2025-08-02T03:29:05.388450" elapsed="0.078140"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Update User" owner="mongodb_library">
+<arg>${id}</arg>
+<arg>{"email": "invalid"}</arg>
+<status status="PASS" start="2025-08-02T03:29:05.466590" elapsed="0.063577"/>
+</kw>
+<msg time="2025-08-02T03:29:05.530167" level="FAIL">Expected error '*Invalid email format*' did not occur.</msg>
+<arg>*Invalid email format*</arg>
+<arg>Update User</arg>
+<arg>${id}</arg>
+<arg>{"email": "invalid"}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="FAIL" start="2025-08-02T03:29:05.466590" elapsed="0.063577">Expected error '*Invalid email format*' did not occur.</status>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:05.530167" elapsed="0.078095"/>
+</kw>
+<doc>Test de mise à jour avec données invalides</doc>
+<status status="FAIL" start="2025-08-02T03:29:00.646839" elapsed="4.961423">Expected error '*Invalid email format*' did not occur.</status>
+</test>
+<test id="s1-t22" name="Delete Valid User" line="113">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:05.608262" elapsed="4.776422"/>
+</kw>
+<kw name="Insert User" owner="mongodb_library">
+<msg time="2025-08-02T03:29:10.461946" level="INFO">${id} = 688d8606d58398349bfe4269</msg>
+<var>${id}</var>
+<arg>${VALID_USER}</arg>
+<status status="PASS" start="2025-08-02T03:29:10.393217" elapsed="0.068729"/>
+</kw>
+<kw name="Delete User" owner="mongodb_library">
+<msg time="2025-08-02T03:29:10.525205" level="INFO">${count} = 1</msg>
+<var>${count}</var>
+<arg>${id}</arg>
+<status status="PASS" start="2025-08-02T03:29:10.461946" elapsed="0.063259"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${1}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-08-02T03:29:10.525205" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:10.525205" elapsed="0.078124"/>
+</kw>
+<doc>Test de suppression d'un utilisateur</doc>
+<status status="PASS" start="2025-08-02T03:29:05.608262" elapsed="4.995067"/>
+</test>
+<test id="s1-t23" name="Delete User Non-Existent ID" line="119">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:10.603329" elapsed="4.753376"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Delete User" owner="mongodb_library">
+<msg time="2025-08-02T03:29:15.356705" level="FAIL">Invalid ObjectId format: nonexistent</msg>
+<arg>nonexistent</arg>
+<status status="FAIL" start="2025-08-02T03:29:15.356705" elapsed="0.000000">Invalid ObjectId format: nonexistent</status>
+</kw>
+<arg>*Invalid ObjectId format*</arg>
+<arg>Delete User</arg>
+<arg>nonexistent</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:29:15.356705" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:15.356705" elapsed="0.078530"/>
+</kw>
+<doc>Test de suppression avec un ID inexistant</doc>
+<status status="PASS" start="2025-08-02T03:29:10.603329" elapsed="4.831906"/>
+</test>
+<test id="s1-t24" name="Delete User Invalid ID Format" line="123">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:15.435235" elapsed="4.907084"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Delete User" owner="mongodb_library">
+<msg time="2025-08-02T03:29:20.342319" level="FAIL">Invalid ObjectId format: invalid-id</msg>
+<arg>invalid-id</arg>
+<status status="FAIL" start="2025-08-02T03:29:20.342319" elapsed="0.000000">Invalid ObjectId format: invalid-id</status>
+</kw>
+<arg>*Invalid ObjectId format*</arg>
+<arg>Delete User</arg>
+<arg>invalid-id</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:29:20.342319" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:20.342319" elapsed="0.078642"/>
+</kw>
+<doc>Test de suppression avec un format d'ID invalide</doc>
+<status status="PASS" start="2025-08-02T03:29:15.435235" elapsed="4.985726"/>
+</test>
+<test id="s1-t25" name="Create Valid Category" line="128">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:20.420961" elapsed="4.782408"/>
+</kw>
+<kw name="Insert Category" owner="mongodb_library">
+<msg time="2025-08-02T03:29:25.345404" level="INFO">${id} = 688d8615d58398349bfe426d</msg>
+<var>${id}</var>
+<arg>${VALID_CATEGORY}</arg>
+<status status="PASS" start="2025-08-02T03:29:25.203369" elapsed="0.142035"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2025-08-02T03:29:25.345404" level="INFO">Length is 24.</msg>
+<arg>${id}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2025-08-02T03:29:25.345404" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:25.345404" elapsed="0.078621"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:29:20.420961" elapsed="5.003064"/>
+</test>
+<test id="s1-t26" name="Create Category Missing Field" line="132">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:25.424025" elapsed="4.825750"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Insert Category" owner="mongodb_library">
+<msg time="2025-08-02T03:29:30.249775" level="FAIL">Missing required field: name</msg>
+<arg>${INVALID_CATEGORY}</arg>
+<status status="FAIL" start="2025-08-02T03:29:30.249775" elapsed="0.015563">Missing required field: name</status>
+</kw>
+<arg>*</arg>
+<arg>Insert Category</arg>
+<arg>${INVALID_CATEGORY}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:29:30.249775" elapsed="0.016859"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:30.268143" elapsed="0.062534"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:29:25.424025" elapsed="4.906652"/>
+</test>
+<test id="s1-t27" name="Create Duplicate Category" line="135">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:30.330677" elapsed="5.046324"/>
+</kw>
+<kw name="Insert Category" owner="mongodb_library">
+<msg time="2025-08-02T03:29:35.440501" level="FAIL">Category with name 'TestCategory1' already exists</msg>
+<var>${id}</var>
+<arg>${DUPLICATE_CATEGORY}</arg>
+<status status="FAIL" start="2025-08-02T03:29:35.377001" elapsed="0.063500">Category with name 'TestCategory1' already exists</status>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<arg>*</arg>
+<arg>Insert Category</arg>
+<arg>${DUPLICATE_CATEGORY}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="NOT RUN" start="2025-08-02T03:29:35.440501" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:35.440501" elapsed="0.125047"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:29:30.330677" elapsed="5.234871">Category with name 'TestCategory1' already exists</status>
+</test>
+<test id="s1-t28" name="Read Valid Category" line="139">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:35.565548" elapsed="4.812730"/>
+</kw>
+<kw name="Insert Category" owner="mongodb_library">
+<msg time="2025-08-02T03:29:40.441672" level="FAIL">Category with name 'TestCategory1' already exists</msg>
+<var>${id}</var>
+<arg>${VALID_CATEGORY}</arg>
+<status status="FAIL" start="2025-08-02T03:29:40.378278" elapsed="0.063394">Category with name 'TestCategory1' already exists</status>
+</kw>
+<kw name="Get Category By ID" owner="mongodb_library">
+<var>${category}</var>
+<arg>${id}</arg>
+<status status="NOT RUN" start="2025-08-02T03:29:40.441672" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${category}["name"]</arg>
+<arg>${VALID_CATEGORY}["name"]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2025-08-02T03:29:40.441672" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:40.441672" elapsed="0.078251"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:29:35.565548" elapsed="4.954375">Category with name 'TestCategory1' already exists</status>
+</test>
+<test id="s1-t29" name="Read Category Non-Existent ID" line="144">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:40.519923" elapsed="4.833799"/>
+</kw>
+<kw name="Get Category By ID" owner="mongodb_library">
+<msg time="2025-08-02T03:29:45.353722" level="INFO">${category} = None</msg>
+<var>${category}</var>
+<arg>"nonexistent"</arg>
+<status status="PASS" start="2025-08-02T03:29:45.353722" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${category}</arg>
+<arg>${None}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-08-02T03:29:45.353722" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:45.353722" elapsed="0.078795"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:29:40.519923" elapsed="4.912594"/>
+</test>
+<test id="s1-t30" name="Read Category Invalid ID Format" line="148">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:45.432517" elapsed="4.767751"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Get Category By ID" owner="mongodb_library">
+<arg>"invalid-id"</arg>
+<status status="PASS" start="2025-08-02T03:29:50.200268" elapsed="0.000000"/>
+</kw>
+<msg time="2025-08-02T03:29:50.200268" level="FAIL">Expected error '*' did not occur.</msg>
+<arg>*</arg>
+<arg>Get Category By ID</arg>
+<arg>"invalid-id"</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="FAIL" start="2025-08-02T03:29:50.200268" elapsed="0.000000">Expected error '*' did not occur.</status>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:50.200268" elapsed="0.141728"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:29:45.432517" elapsed="4.909479">Expected error '*' did not occur.</status>
+</test>
+<test id="s1-t31" name="Update Valid Category" line="151">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:50.341996" elapsed="4.770267"/>
+</kw>
+<kw name="Insert Category" owner="mongodb_library">
+<msg time="2025-08-02T03:29:55.190461" level="FAIL">Category with name 'TestCategory1' already exists</msg>
+<var>${id}</var>
+<arg>${VALID_CATEGORY}</arg>
+<status status="FAIL" start="2025-08-02T03:29:55.112263" elapsed="0.078198">Category with name 'TestCategory1' already exists</status>
+</kw>
+<kw name="Update Category" owner="mongodb_library">
+<var>${count}</var>
+<arg>${id}</arg>
+<arg>{"description": "Updated description"}</arg>
+<status status="NOT RUN" start="2025-08-02T03:29:55.190461" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${1}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-08-02T03:29:55.190461" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:55.190461" elapsed="0.062465"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:29:50.341996" elapsed="4.910930">Category with name 'TestCategory1' already exists</status>
+</test>
+<test id="s1-t32" name="Update Category Non-Existent ID" line="156">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:29:55.252926" elapsed="4.965028"/>
+</kw>
+<kw name="Update Category" owner="mongodb_library">
+<msg time="2025-08-02T03:30:00.219029" level="FAIL">Invalid ObjectId format: nonexistent</msg>
+<var>${count}</var>
+<arg>"nonexistent"</arg>
+<arg>{"description": "Updated description"}</arg>
+<status status="FAIL" start="2025-08-02T03:30:00.218491" elapsed="0.001075">Invalid ObjectId format: nonexistent</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${0}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-08-02T03:30:00.220106" elapsed="0.000532"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:00.221411" elapsed="0.057289"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:29:55.252926" elapsed="5.025774">Invalid ObjectId format: nonexistent</status>
+</test>
+<test id="s1-t33" name="Update Category Invalid Data" line="160">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:00.278700" elapsed="4.858841"/>
+</kw>
+<kw name="Insert Category" owner="mongodb_library">
+<msg time="2025-08-02T03:30:05.200053" level="FAIL">Category with name 'TestCategory1' already exists</msg>
+<var>${id}</var>
+<arg>${VALID_CATEGORY}</arg>
+<status status="FAIL" start="2025-08-02T03:30:05.137541" elapsed="0.062512">Category with name 'TestCategory1' already exists</status>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<arg>*</arg>
+<arg>Update Category</arg>
+<arg>${id}</arg>
+<arg>{"name": ""}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="NOT RUN" start="2025-08-02T03:30:05.200053" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:05.200053" elapsed="0.062611"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:30:00.278700" elapsed="4.983964">Category with name 'TestCategory1' already exists</status>
+</test>
+<test id="s1-t34" name="Delete Valid Category" line="164">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:05.278120" elapsed="4.759381"/>
+</kw>
+<kw name="Insert Category" owner="mongodb_library">
+<msg time="2025-08-02T03:30:10.101680" level="FAIL">Category with name 'TestCategory1' already exists</msg>
+<var>${id}</var>
+<arg>${VALID_CATEGORY}</arg>
+<status status="FAIL" start="2025-08-02T03:30:10.037501" elapsed="0.064179">Category with name 'TestCategory1' already exists</status>
+</kw>
+<kw name="Delete Category" owner="mongodb_library">
+<var>${count}</var>
+<arg>${id}</arg>
+<status status="NOT RUN" start="2025-08-02T03:30:10.101680" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${1}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-08-02T03:30:10.101680" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:10.101680" elapsed="0.078133"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:30:05.278120" elapsed="4.901693">Category with name 'TestCategory1' already exists</status>
+</test>
+<test id="s1-t35" name="Delete Category Non-Existent ID" line="169">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:10.179813" elapsed="4.768950"/>
+</kw>
+<kw name="Delete Category" owner="mongodb_library">
+<msg time="2025-08-02T03:30:14.948763" level="FAIL">Invalid ObjectId format: nonexistent</msg>
+<var>${count}</var>
+<arg>"nonexistent"</arg>
+<status status="FAIL" start="2025-08-02T03:30:14.948763" elapsed="0.000000">Invalid ObjectId format: nonexistent</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${0}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-08-02T03:30:14.948763" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:14.948763" elapsed="0.078109"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:30:10.179813" elapsed="4.847059">Invalid ObjectId format: nonexistent</status>
+</test>
+<test id="s1-t36" name="Delete Category Invalid ID Format" line="173">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:15.026872" elapsed="4.741237"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Delete Category" owner="mongodb_library">
+<msg time="2025-08-02T03:30:19.768109" level="FAIL">Invalid ObjectId format: invalid-id</msg>
+<arg>"invalid-id"</arg>
+<status status="FAIL" start="2025-08-02T03:30:19.768109" elapsed="0.000000">Invalid ObjectId format: invalid-id</status>
+</kw>
+<arg>*</arg>
+<arg>Delete Category</arg>
+<arg>"invalid-id"</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:30:19.768109" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:19.768109" elapsed="0.062536"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:30:15.026872" elapsed="4.803773"/>
+</test>
+<test id="s1-t37" name="Create Valid Order" line="177">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:19.846240" elapsed="4.835463"/>
+</kw>
+<kw name="Insert Order" owner="mongodb_library">
+<msg time="2025-08-02T03:30:24.760604" level="INFO">${id} = 688d8650d58398349bfe427a</msg>
+<var>${id}</var>
+<arg>${VALID_ORDER}</arg>
+<status status="PASS" start="2025-08-02T03:30:24.681703" elapsed="0.078901"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2025-08-02T03:30:24.760604" level="INFO">Length is 24.</msg>
+<arg>${id}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2025-08-02T03:30:24.760604" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:24.760604" elapsed="0.076126"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:30:19.830645" elapsed="5.006085"/>
+</test>
+<test id="s1-t38" name="Create Order With Invalid Products Format" line="181">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:24.836730" elapsed="4.855008"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Insert Order" owner="mongodb_library">
+<msg time="2025-08-02T03:30:29.691738" level="FAIL">Missing required field(s): product_id, quantity</msg>
+<arg>${INVALID_ORDER}</arg>
+<status status="FAIL" start="2025-08-02T03:30:29.691738" elapsed="0.000000">Missing required field(s): product_id, quantity</status>
+</kw>
+<arg>*</arg>
+<arg>Insert Order</arg>
+<arg>${INVALID_ORDER}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:30:29.691738" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:29.691738" elapsed="0.062889"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:30:24.836730" elapsed="4.917897"/>
+</test>
+<test id="s1-t39" name="Create Order With Invalid Type" line="184">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:29.754627" elapsed="4.783609"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Insert Order" owner="mongodb_library">
+<msg time="2025-08-02T03:30:34.538236" level="FAIL">Quantity must be a number</msg>
+<arg>${BAD_TYPE_ORDER}</arg>
+<status status="FAIL" start="2025-08-02T03:30:34.538236" elapsed="0.000000">Quantity must be a number</status>
+</kw>
+<arg>*</arg>
+<arg>Insert Order</arg>
+<arg>${BAD_TYPE_ORDER}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:30:34.538236" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:34.538236" elapsed="0.063298"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:30:29.754627" elapsed="4.846907"/>
+</test>
+<test id="s1-t40" name="Read Valid Order" line="187">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:34.601534" elapsed="5.041216"/>
+</kw>
+<kw name="Insert Order" owner="mongodb_library">
+<msg time="2025-08-02T03:30:39.752698" level="INFO">${id} = 688d865fd58398349bfe427e</msg>
+<var>${id}</var>
+<arg>${VALID_ORDER}</arg>
+<status status="PASS" start="2025-08-02T03:30:39.642750" elapsed="0.109948"/>
+</kw>
+<kw name="Get Order By ID" owner="mongodb_library">
+<msg time="2025-08-02T03:30:39.846278" level="INFO">${order} = {'_id': '688d865fd58398349bfe427e', 'product_id': '123', 'user_id': '456', 'quantity': 1}</msg>
+<var>${order}</var>
+<arg>${id}</arg>
+<status status="PASS" start="2025-08-02T03:30:39.752698" elapsed="0.093580"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<msg time="2025-08-02T03:30:39.846278" level="FAIL">Dictionary '${order}' has no key '"userId"'.</msg>
+<arg>${order}["userId"]</arg>
+<arg>${VALID_ORDER}["userId"]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="FAIL" start="2025-08-02T03:30:39.846278" elapsed="0.000000">Dictionary '${order}' has no key '"userId"'.</status>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:39.846278" elapsed="0.079156"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:30:34.601534" elapsed="5.323900">Dictionary '${order}' has no key '"userId"'.</status>
+</test>
+<test id="s1-t41" name="Read Order Non-Existent ID" line="192">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:39.925434" elapsed="4.810483"/>
+</kw>
+<kw name="Get Order By ID" owner="mongodb_library">
+<msg time="2025-08-02T03:30:44.735917" level="INFO">${order} = None</msg>
+<var>${order}</var>
+<arg>"nonexistent"</arg>
+<status status="PASS" start="2025-08-02T03:30:44.735917" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${order}</arg>
+<arg>${None}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-08-02T03:30:44.735917" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:44.735917" elapsed="0.078212"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:30:39.925434" elapsed="4.888695"/>
+</test>
+<test id="s1-t42" name="Read Order Invalid ID Format" line="196">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:44.814129" elapsed="4.791190"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Get Order By ID" owner="mongodb_library">
+<arg>"invalid-id"</arg>
+<status status="PASS" start="2025-08-02T03:30:49.605319" elapsed="0.000000"/>
+</kw>
+<msg time="2025-08-02T03:30:49.605319" level="FAIL">Expected error '*' did not occur.</msg>
+<arg>*</arg>
+<arg>Get Order By ID</arg>
+<arg>"invalid-id"</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="FAIL" start="2025-08-02T03:30:49.605319" elapsed="0.000000">Expected error '*' did not occur.</status>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:49.605319" elapsed="0.063198"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:30:44.814129" elapsed="4.854388">Expected error '*' did not occur.</status>
+</test>
+<test id="s1-t43" name="Update Valid Order" line="199">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:49.668517" elapsed="4.772953"/>
+</kw>
+<kw name="Insert Order" owner="mongodb_library">
+<msg time="2025-08-02T03:30:54.504433" level="INFO">${id} = 688d866ed58398349bfe4282</msg>
+<var>${id}</var>
+<arg>${VALID_ORDER}</arg>
+<status status="PASS" start="2025-08-02T03:30:54.441470" elapsed="0.062963"/>
+</kw>
+<kw name="Update Order" owner="mongodb_library">
+<msg time="2025-08-02T03:30:54.582571" level="INFO">${count} = 1</msg>
+<var>${count}</var>
+<arg>${id}</arg>
+<arg>{"products": [{"productId": "456", "quantity": 3}]}</arg>
+<status status="PASS" start="2025-08-02T03:30:54.504433" elapsed="0.078138"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${1}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-08-02T03:30:54.582571" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:54.582571" elapsed="0.063105"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:30:49.668517" elapsed="4.977159"/>
+</test>
+<test id="s1-t44" name="Update Order Non-Existent ID" line="204">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:54.645676" elapsed="4.816175"/>
+</kw>
+<kw name="Update Order" owner="mongodb_library">
+<msg time="2025-08-02T03:30:59.461851" level="FAIL">Invalid ObjectId format: nonexistent</msg>
+<var>${count}</var>
+<arg>"nonexistent"</arg>
+<arg>{"products": [{"productId": "456", "quantity": 3}]}</arg>
+<status status="FAIL" start="2025-08-02T03:30:59.461851" elapsed="0.000000">Invalid ObjectId format: nonexistent</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${0}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-08-02T03:30:59.461851" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:59.461851" elapsed="0.062971"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:30:54.645676" elapsed="4.879146">Invalid ObjectId format: nonexistent</status>
+</test>
+<test id="s1-t45" name="Update Order Invalid Data" line="208">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:30:59.524822" elapsed="4.785772"/>
+</kw>
+<kw name="Insert Order" owner="mongodb_library">
+<msg time="2025-08-02T03:31:04.376493" level="INFO">${id} = 688d8678d58398349bfe4285</msg>
+<var>${id}</var>
+<arg>${VALID_ORDER}</arg>
+<status status="PASS" start="2025-08-02T03:31:04.310594" elapsed="0.065899"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Update Order" owner="mongodb_library">
+<arg>${id}</arg>
+<arg>{"products": "invalid"}</arg>
+<status status="PASS" start="2025-08-02T03:31:04.392145" elapsed="0.062493"/>
+</kw>
+<msg time="2025-08-02T03:31:04.454638" level="FAIL">Expected error '*' did not occur.</msg>
+<arg>*</arg>
+<arg>Update Order</arg>
+<arg>${id}</arg>
+<arg>{"products": "invalid"}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="FAIL" start="2025-08-02T03:31:04.392145" elapsed="0.062493">Expected error '*' did not occur.</status>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:31:04.454638" elapsed="0.078576"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:30:59.524822" elapsed="5.008392">Expected error '*' did not occur.</status>
+</test>
+<test id="s1-t46" name="Delete Valid Order" line="212">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:31:04.533214" elapsed="4.760352"/>
+</kw>
+<kw name="Insert Order" owner="mongodb_library">
+<msg time="2025-08-02T03:31:09.388801" level="INFO">${id} = 688d867dd58398349bfe4287</msg>
+<var>${id}</var>
+<arg>${VALID_ORDER}</arg>
+<status status="PASS" start="2025-08-02T03:31:09.293566" elapsed="0.095235"/>
+</kw>
+<kw name="Delete Order" owner="mongodb_library">
+<msg time="2025-08-02T03:31:09.466932" level="INFO">${count} = 1</msg>
+<var>${count}</var>
+<arg>${id}</arg>
+<status status="PASS" start="2025-08-02T03:31:09.388801" elapsed="0.078131"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${1}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-08-02T03:31:09.466932" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:31:09.482558" elapsed="0.062966"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:31:04.533214" elapsed="5.012310"/>
+</test>
+<test id="s1-t47" name="Delete Order Non-Existent ID" line="217">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:31:09.545524" elapsed="4.777968"/>
+</kw>
+<kw name="Delete Order" owner="mongodb_library">
+<msg time="2025-08-02T03:31:14.323492" level="FAIL">Invalid ObjectId format: nonexistent</msg>
+<var>${count}</var>
+<arg>"nonexistent"</arg>
+<status status="FAIL" start="2025-08-02T03:31:14.323492" elapsed="0.000000">Invalid ObjectId format: nonexistent</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${0}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-08-02T03:31:14.323492" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:31:14.323492" elapsed="0.062504"/>
+</kw>
+<status status="FAIL" start="2025-08-02T03:31:09.545524" elapsed="4.840472">Invalid ObjectId format: nonexistent</status>
+</test>
+<test id="s1-t48" name="Delete Order Invalid ID Format" line="221">
+<kw name="Connect To Database" owner="mongodb_library" type="SETUP">
+<arg>${DB_URI}</arg>
+<arg>${DB_NAME}</arg>
+<doc>Connect to MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:31:14.385996" elapsed="4.899535"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Delete Order" owner="mongodb_library">
+<msg time="2025-08-02T03:31:19.285531" level="FAIL">Invalid ObjectId format: invalid-id</msg>
+<arg>"invalid-id"</arg>
+<status status="FAIL" start="2025-08-02T03:31:19.285531" elapsed="0.000000">Invalid ObjectId format: invalid-id</status>
+</kw>
+<arg>*</arg>
+<arg>Delete Order</arg>
+<arg>"invalid-id"</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2025-08-02T03:31:19.285531" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect From Database" owner="mongodb_library" type="TEARDOWN">
+<doc>Disconnect from MongoDB database</doc>
+<status status="PASS" start="2025-08-02T03:31:19.285531" elapsed="0.078124"/>
+</kw>
+<status status="PASS" start="2025-08-02T03:31:14.385996" elapsed="4.977659"/>
+</test>
+<doc>Tests CRUD pour la base de données MongoDB fakeStoreDB</doc>
+<status status="FAIL" start="2025-08-02T03:27:21.565564" elapsed="237.798091"/>
+</suite>
+<statistics>
+<total>
+<stat pass="32" fail="16" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Mongodb Crud Tests" id="s1" pass="32" fail="16" skip="0">Mongodb Crud Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
