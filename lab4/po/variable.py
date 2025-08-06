@@ -15,3 +15,12 @@ AUTOMATION_NAME = "uiautomator2"
 #   "appium:app": "C:\\Users\\LENOVO\\Desktop\\M1 GL\\QA TEST\\examen\\app-looma.apk",
 #   "appium:uiautomator2ServerLaunchTimeout": 60000
 # }
+
+
+# {
+#   "appium:automationName": "uiautomator2",
+#   "platformName": "Android",
+#   "appium:platformVersion": "16",
+#   "appium:deviceName": "Pixel a3",
+#   "appium:uiautomator2ServerLaunchTimeout": 60000
+# }

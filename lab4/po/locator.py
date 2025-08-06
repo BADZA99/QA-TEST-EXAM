@@ -5,14 +5,12 @@ LOGIN_BUTTON              =   "accessibility_id=Se connecter"
 USERNAME_FIELD_CLASS = "android.widget.EditText"  # Classe pour le champ utilisateur
 PASSWORD_FIELD_CLASS = "android.widget.EditText"  # Classe pour le champ mot de passe
 
-USERNAME_FIELD_LOCATOR = ("android.widget.EditText", USERNAME_FIELD_INDEX)  # Classe et index pour le champ utilisateur
-PASSWORD_FIELD_LOCATOR = ("android.widget.EditText", PASSWORD_FIELD_INDEX)  # Classe et index pour le champ mot de passe
-
 ADD_PRODUIT_FORM_TITLE = "accessibility_id=Ajouter un produit"
 ADD_PRODUIT_BUTTON = "accessibility_id=Ajouter"
 
 
-
+USERNAME_FIELD_LOCATOR = ("android.widget.EditText", USERNAME_FIELD_INDEX)  # Classe et index pour le champ utilisateur
+PASSWORD_FIELD_LOCATOR = ("android.widget.EditText", PASSWORD_FIELD_INDEX)  # Classe et index pour le champ mot de passe
 
 # Ajouter un produit TEST
 # Les index des champs dans le formulaire d'ajout de produit

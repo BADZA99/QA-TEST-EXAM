@@ -1,58 +1,48 @@
 *** Settings ***
-Documentation    Tests de l'API eBay Fulfillment selon les spécifications
-Resource         ../ressources/common.robot
-Library          Collections
-Library          String
+Documentation     Tests de l'API eBay Fulfillment
+Resource          ../resources/resources.robot
+Suite Setup       Create Session To Ebay API
 
 *** Test Cases ***
-Créer un fulfillment - Cas Passant
-    [Documentation]    Test du cas passant - Création avec données valides
-    ...    Vérifie : Code 201 + Location header
+Test Get Shipping Fulfillments - Cas Passant
+    [Documentation]    Vérifier la récupération de tous les fulfillments 
+    [Tags]    positive    fulfillments
+    ${response}=    Get Shipping Fulfilments Pass
+    Validate Response Status    ${response}    200
+    Validate Response Contains    ${response}    fulfillments
+
+Test Get Shipping Fulfillments - Cas Non Passant
+    [Documentation]    Vérifier la gestion des erreurs pour la récupération des fulfillments
+    [Tags]    negative    fulfillments
+    ${response}=    Get Shipping Fulfilments No Pass
+    Validate Response Status    ${response}    400
+    Validate Response Contains    ${response}    errors
+
+Test Create Shipping Fulfillment - Cas Passant
+    [Documentation]    Vérifier la création d'un fulfillment 
     [Tags]    positive    create
-    ${payload}=    Create Valid Payload
-    ${response}=    Create Shipping Fulfillment    ${VALID_ORDER_ID}    ${payload}
-    Verify Success Response    ${response}    201    ${TRUE}
+    ${response}=    Create Shipping Fulfillment Pass
+    Validate Response Status    ${response}    201
 
-Créer un fulfillment - Payload Invalide
-    [Documentation]    Test du cas non passant - Payload invalide
-    ...    Vérifie : Code 400 avec message d'erreur
+Test Create Shipping Fulfillment - Cas Non Passant
+    [Documentation]    Vérifier la gestion des erreurs pour la création d'un fulfillment
     [Tags]    negative    create
-    ${payload}=    Create Invalid Payload
-    ${response}=    Create Shipping Fulfillment    ${VALID_ORDER_ID}    ${payload}
-    Verify Error Response    ${response}    400    Invalid request
+    ${response}=    Create Shipping Fulfillment No Pass
+    Validate Response Status    ${response}    400
 
-Créer un fulfillment - Order ID Invalide
-    [Documentation]    Test avec un ID de commande invalide
-    ...    Vérifie : Code 400 avec message spécifique
-    [Tags]    negative    create
-    ${payload}=    Create Valid Payload
-    ${response}=    Create Shipping Fulfillment    ${INVALID_ORDER_ID}    ${payload}
-    Verify Error Response    ${response}    400    Invalid Order Id
 
-Récupérer les fulfillments - Cas Passant
-    [Documentation]    Test du cas passant - Liste des fulfillments
-    ...    Vérifie : Code 200 + liste des fulfillments
-    [Tags]    positive    read
-    ${response}=    Get Shipping Fulfillments    ${VALID_ORDER_ID}
-    Verify Success Response    ${response}    200
+Test Get Shipping Fulfillment - Cas Passant
+    [Documentation]    Vérifier la récupération d'un fulfillment spécifique 
+    [Tags]    positive    fulfillment
+    ${response}=    Get Shipping Fulfillment Pass
+    Validate Response Status    ${response}    200
 
-Récupérer les fulfillments - Order ID Invalide
-    [Documentation]    Test avec ID commande invalide
-    ...    Vérifie : Code 404 avec message d'erreur
-    [Tags]    negative    read
-    ${response}=    Get Shipping Fulfillments    ${INVALID_ORDER_ID}
-    Verify Error Response    ${response}    404    Not found
 
-Récupérer un fulfillment - Cas Passant
-    [Documentation]    Test du cas passant - Récupération d'un fulfillment
-    ...    Vérifie : Code 200 + données du fulfillment
-    [Tags]    positive    read
-    ${response}=    Get Shipping Fulfillment    ${VALID_ORDER_ID}    ${VALID_FULFILLMENT_ID}
-    Verify Success Response    ${response}    200
+Test Get Shipping Fulfillment - Cas Non Passant
+    [Documentation]    Vérifier la gestion des erreurs pour la récupération d'un fulfillment
+    [Tags]    negative    fulfillment
+    ${response}=    Get Shipping Fulfillment No Pass
+    Validate Response Status    ${response}    400
+ 
 
-Récupérer un fulfillment - ID Invalide
-    [Documentation]    Test avec ID fulfillment invalide
-    ...    Vérifie : Code 404 avec message d'erreur
-    [Tags]    negative    read
-    ${response}=    Get Shipping Fulfillment    ${VALID_ORDER_ID}    ${INVALID_FULFILLMENT_ID}
-    Verify Error Response    ${response}    404    Not found
+
